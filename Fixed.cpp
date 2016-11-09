@@ -145,7 +145,7 @@ Fixed operator+(const Fixed &Fx1, const Fixed &Fx2){
     return Buff;
 }
 Fixed operator-(const Fixed &Fx1, const Fixed &Fx2) {///Dodelat
-    Fixed BFx2 = Fx2;
+    Fixed BFx2(Fx2);
     BFx2.Sign = !Fx2.Sign;
     return Fx1 + BFx2;
 }

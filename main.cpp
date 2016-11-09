@@ -181,9 +181,8 @@ int main(int argc, char* argv[]) {
         Fixed Fx2(4, 4);
         Fx1.appoint(SinBuff);
         Fx2.appoint(SinBuff);
-        Fixed Minus;
-        Minus = Fx1 - Fx2;
-        //FixedPoints.push_back(Minus);
+        Fixed Minus= Fx1 + Fx2;
+        FixedPoints.push_back(Minus);
         //DatesFromFile.push_back((4 >= i%8 ? -i : i));
         //DatesFromFile.push_back(i);
     }
