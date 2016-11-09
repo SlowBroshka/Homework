@@ -1,0 +1,8 @@
+//
+// Created by slowbro on 19.10.16.
+//
+
+#ifndef SIGNALENCODING_WAVDATA_H
+#define SIGNALENCODING_WAVDATA_H
+
+#endif //SIGNALENCODING_WAVDATA_H
