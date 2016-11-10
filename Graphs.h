@@ -156,7 +156,7 @@ void CreateGraphOnImage(IplImage *img, std::vector<T>&Data, T MAXSIZEofDATA, siz
 }
 
 template <typename T1, typename T2>
-void AdapriveCreate2FreqGraph(std::vector<T1>&Data1, std::vector<T2>&Data2, size_t size, std::string filename)
+void AdaptiveCreate2FreqGraph(std::vector<T1>&Data1, std::vector<T2>&Data2, size_t size, std::string filename)
 {
     size_t XSize = _XSize - 10;
     size_t YSize = _YSize - 10;

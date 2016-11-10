@@ -39,7 +39,7 @@ int main(int argc, char* argv[]) {
 
 
 
-    int Step = 10;
+    int Step = 8;
     int MAX = 1 << Step;
     std::vector<double> Ad;
     std::vector<double> Raz;
@@ -66,6 +66,19 @@ int main(int argc, char* argv[]) {
         cout << "Full Deviant= " << FullDeviant1 << endl;
     }
     AdaptiveCreateFreaqGrapg(StandDeviation1, 2, std::string(Puth + "SKO_First.jpg"));
+    StandDeviation1.clear();
+
+    for(size_t j = 2; j < 9; j++) {
+        double FullDeviant1 = 0;
+        for (size_t i = 0; i < MAX; i++) {
+            double Fx1 = MyTrunc(Ad[i], j);
+            double Minus = Ad[i] - Fx1;
+            FullDeviant1 += (Minus * Minus);
+        }
+        StandDeviation1.push_back(sqrt(FullDeviant1/MAX) * 1000);
+        cout<<sqrt(FullDeviant1/MAX) * 1000<<" ";
+    }
+    AdaptiveCreateFreaqGrapg(StandDeviation1, 2, std::string(Puth + "First_SKO_N.jpg"));
 
     vector<double> TruncDevians;
     vector<double> TruncPlusDevians;
@@ -80,15 +93,12 @@ int main(int argc, char* argv[]) {
             FullDeviant2 += (Ad[i] - MyTruncPlus(Ad[i], j)) * (Ad[i] - MyTruncPlus(Ad[i], j));
             FullDeviant3 += (Ad[i] - MyRound(Ad[i], j)) * (Ad[i] - MyRound(Ad[i], j));
 
-            TruncDevians.push_back(sqrt(FullDeviant1/(MAX/1)) * 100000);
-            TruncPlusDevians.push_back(sqrt(FullDeviant2/(MAX/1)) * 100000);
-            RoundDevians.push_back(sqrt(FullDeviant3/(MAX/1)) * 100000);
+            TruncDevians.push_back(sqrt(FullDeviant1/(MAX/1)) * 100000000);
+            TruncPlusDevians.push_back(sqrt(FullDeviant2/(MAX/1)) * 100000000);
+            RoundDevians.push_back(sqrt(FullDeviant3/(MAX/1)) * 100000000);
 
         }
     }
-    cout<<"TruncDeviance= "<<TruncDevians[TruncDevians.size()/2-1]<<endl;
-    cout<<"TruncPlusDeviance= "<<TruncPlusDevians[TruncPlusDevians.size()/2-1]<<endl;
-    cout<<"RoundDeviance= "<<RoundDevians[RoundDevians.size()/2-1]<<endl;
     Fin.push_back(TruncDevians);
     Fin.push_back(TruncPlusDevians);
     Fin.push_back(RoundDevians);
@@ -97,7 +107,7 @@ int main(int argc, char* argv[]) {
     TruncDevians.clear();
     TruncPlusDevians.clear();
     RoundDevians.clear();
-    for(size_t j = 1; j < 6; j++) {
+    for(size_t j = 3; j < 6; j++) {
         double FullDeviant1 = 0;
         double FullDeviant2 = 0;
         double FullDeviant3 = 0;
@@ -113,7 +123,7 @@ int main(int argc, char* argv[]) {
     Fin.push_back(TruncDevians);
     Fin.push_back(TruncPlusDevians);
     Fin.push_back(RoundDevians);
-    AdapriveCreateVectorFreqGraph(Fin, 2, std::string(Puth + "SKO3_N4-6_Trunc_Round_RoundPlus.jpg"));
+    AdapriveCreateVectorFreqGraph(Fin, 2, std::string(Puth + "SKO3_N3-6_Trunc_Round_RoundPlus.jpg"));
     Fin.clear();
     TruncDevians.clear();
     TruncPlusDevians.clear();
@@ -129,7 +139,7 @@ int main(int argc, char* argv[]) {
         cout<<DatesFromFile[i]<<" ";
     cout<<endl;*/
     Adamar(Step, Ad);
-    AdapriveCreate2FreqGraph(DatesFromFile, Ad, 2, std::string(Puth + "AdANDinp.jpg"));
+    AdaptiveCreate2FreqGraph(DatesFromFile, Ad, 2, std::string(Puth + "AdANDinp.jpg"));
     /*for(size_t i =0; i < Ad.size(); i++){
         cout<<i<<" ";
         long long buff = DatesFromFile[i] == 0 ? 0 : Ad[i] / DatesFromFile[i];

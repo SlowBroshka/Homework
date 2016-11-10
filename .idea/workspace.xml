@@ -12,7 +12,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fbb2ce86-54fc-4189-860f-d703843ad884" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Outputs/chan_Adamar1.jpg" afterPath="$PROJECT_DIR$/Outputs/chan_Adamar1.jpg" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Graphs.h" afterPath="$PROJECT_DIR$/Graphs.h" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main.cpp" afterPath="$PROJECT_DIR$/main.cpp" />
     </list>
     <ignored path="SignalEncoding.iws" />
@@ -46,8 +48,8 @@
       <file leaf-file-name="main.cpp" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="361">
-              <caret line="117" column="25" selection-start-line="117" selection-start-column="25" selection-end-line="117" selection-end-column="25" />
+            <state relative-caret-position="-1079">
+              <caret line="46" column="38" selection-start-line="46" selection-start-column="38" selection-end-line="46" selection-end-column="38" />
               <folding>
                 <element signature="e#2#21#0" expanded="true" />
               </folding>
@@ -73,8 +75,8 @@
       <file leaf-file-name="Graphs.h" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Graphs.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="522">
-              <caret line="221" column="1" selection-start-line="221" selection-start-column="1" selection-end-line="221" selection-end-column="1" />
+            <state relative-caret-position="267">
+              <caret line="158" column="10" selection-start-line="158" selection-start-column="10" selection-end-line="158" selection-end-column="10" />
               <folding>
                 <element signature="e#105#120#0" expanded="true" />
                 <element signature="e#735#747#0" expanded="true" />
@@ -127,9 +129,9 @@
         <option value="$PROJECT_DIR$/Fixed.cpp" />
         <option value="$PROJECT_DIR$/Trash.cpp" />
         <option value="$PROJECT_DIR$/CMakeLists.txt" />
-        <option value="$PROJECT_DIR$/Graphs.h" />
         <option value="$PROJECT_DIR$/Constants.h" />
         <option value="$PROJECT_DIR$/Graphs.cpp" />
+        <option value="$PROJECT_DIR$/Graphs.h" />
         <option value="$PROJECT_DIR$/main.cpp" />
       </list>
     </option>
@@ -417,7 +419,7 @@
       <workItem from="1478657457856" duration="1909000" />
       <workItem from="1478719521719" duration="6257000" />
       <workItem from="1478728562752" duration="14163000" />
-      <workItem from="1478744115633" duration="5999000" />
+      <workItem from="1478744115633" duration="7900000" />
     </task>
     <task id="LOCAL-00001" summary="Plus Fixed Library">
       <created>1478657595320</created>
@@ -440,11 +442,18 @@
       <option name="project" value="LOCAL" />
       <updated>1478749721263</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Trunks + Rounds + graphics">
+      <created>1478750124175</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1478750124175</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="135875000" />
+    <option name="totallyTimeSpent" value="137776000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -936,8 +945,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Graphs.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="522">
-          <caret line="221" column="1" selection-start-line="221" selection-start-column="1" selection-end-line="221" selection-end-column="1" />
+        <state relative-caret-position="267">
+          <caret line="158" column="10" selection-start-line="158" selection-start-column="10" selection-end-line="158" selection-end-column="10" />
           <folding>
             <element signature="e#105#120#0" expanded="true" />
             <element signature="e#735#747#0" expanded="true" />
@@ -967,8 +976,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/main.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="361">
-          <caret line="117" column="25" selection-start-line="117" selection-start-column="25" selection-end-line="117" selection-end-column="25" />
+        <state relative-caret-position="-1079">
+          <caret line="46" column="38" selection-start-line="46" selection-start-column="38" selection-end-line="46" selection-end-column="38" />
           <folding>
             <element signature="e#2#21#0" expanded="true" />
           </folding>
