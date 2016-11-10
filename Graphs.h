@@ -12,18 +12,25 @@
 #include <fstream>
 #include <cstdint>
 #include "Constants.h"
+#include <math.h>
 
 
 int getFileSize(FILE* inFile);
+unsigned int GetDecbyNum(double const fNumeric, signed int const num);
+double MyTrunc(double  Number, int Tr);
+double MyTruncPlus(double Number, int Tr);
+double MyRound(double Number, int Tr);
 
 void CreateFreaqGrapg(FILE *inputData, size_t size, std::string filename);
 void CreateFreaqGrapg(std::vector<short>&Data, size_t size, std::string filename);
 template <typename T>
 void AdaptiveCreateFreaqGrapg(std::vector<T>&Data, size_t size, std::string filename)//Draw graph from inputdata to filename with datasizeperbit
 {
+    size_t XSize = _XSize - 10;
+    size_t YSize = _YSize - 10;
     std::cout<<"Graph Start"<<std::endl;
 
-    IplImage *NewGraph = cvCreateImage(CvSize(XSize, YSize), IPL_DEPTH_8U, 1);
+    IplImage *NewGraph = cvCreateImage(CvSize(_XSize, _YSize), IPL_DEPTH_8U, 1);
     cvSet(NewGraph, CvScalar(255));
 
     T MAXSIZEofDATA = abs(Data[0]);
@@ -92,6 +99,8 @@ void AdaptiveCreateFreaqGrapg(std::vector<T>&Data, size_t size, std::string file
 
 template <typename T>
 void CreateGraphOnImage(IplImage *img, std::vector<T>&Data, T MAXSIZEofDATA, size_t size, CvScalar Color){
+    size_t XSize = _XSize - 10;
+    size_t YSize = _YSize - 10;
     size_t lgh = Data.size();
     if (lgh >= XSize) {
         size_t BlockSize = lgh / XSize;
@@ -123,9 +132,9 @@ void CreateGraphOnImage(IplImage *img, std::vector<T>&Data, T MAXSIZEofDATA, siz
             int YMIN = int((float(MIN) * float(YSize / 2) / float(MAXSIZEofDATA)));
             //int YMAXmean = int((float(MAXmean) * float(YSize / 2) / float(MAXSIZEofDATA)));
             //int YMINmean = int((float(MINmean) * float(YSize / 2) / float(MAXSIZEofDATA)));
-
             cvLine(img, CvPoint(i, YSize / 2), CvPoint(i, YSize / 2 - YMAX), Color, 1, 1, 0);
-            cvLine(img, CvPoint(i, YSize / 2), CvPoint(i, YSize / 2 - YMIN), Color, 1, 1, 0);
+            cvLine(img, CvPoint(i, YSize / 2), CvPoint(i, YSize / 2 - YMIN), CvScalar(Color), 1, 1, 0);
+
             //cvLine(img, CvPoint(i, YSize / 2), CvPoint(i, YSize / 2 - YMAXmean), CvScalar(255), 1, 1, 0);
             //cvLine(img, CvPoint(i, YSize / 2), CvPoint(i, YSize / 2 - YMINmean), CvScalar(255), 1, 1, 0);
         }
@@ -139,8 +148,8 @@ void CreateGraphOnImage(IplImage *img, std::vector<T>&Data, T MAXSIZEofDATA, siz
             int X1 = int((i+1) * BlockSize);
             //std::cout<<"X0= "<<X0<<" "<<"Y0= "<<Y0<<std::endl;
             //std::cout<<"X1= "<<X0<<" "<<"Y1= "<<Y0<<std::endl;
-            cvLine(img, CvPoint(X0, YSize / 2), CvPoint(X0, YSize / 2 - Y0), Color, 1, 1, 0);
-            cvLine(img, CvPoint(X1, YSize / 2), CvPoint(X1, YSize / 2 - Y1), Color, 1, 1, 0);
+            //cvLine(img, CvPoint(X0, YSize / 2), CvPoint(X0, YSize / 2 - Y0), Color, 1, 1, 0);
+            //cvLine(img, CvPoint(X1, YSize / 2), CvPoint(X1, YSize / 2 - Y1), Color, 1, 1, 0);
             cvLine(img, CvPoint(X0, YSize / 2 - Y0), CvPoint(X1, YSize / 2 - Y1), Color, 1, 1, 0);
         }
     }
@@ -149,9 +158,11 @@ void CreateGraphOnImage(IplImage *img, std::vector<T>&Data, T MAXSIZEofDATA, siz
 template <typename T1, typename T2>
 void AdapriveCreate2FreqGraph(std::vector<T1>&Data1, std::vector<T2>&Data2, size_t size, std::string filename)
 {
+    size_t XSize = _XSize - 10;
+    size_t YSize = _YSize - 10;
     std::cout<<"AdapriveCreate2FreqGraph START"<<std::endl;
 
-    IplImage *NewGraph = cvCreateImage(CvSize(XSize, YSize), IPL_DEPTH_8U, 3);
+    IplImage *NewGraph = cvCreateImage(CvSize(_XSize, _YSize), IPL_DEPTH_8U, 3);
     cvSet(NewGraph, CvScalar(255, 255, 255));
     size_t lgh1 = Data1.size();
     size_t lgh2 = Data2.size();
@@ -178,6 +189,32 @@ void AdapriveCreate2FreqGraph(std::vector<T1>&Data1, std::vector<T2>&Data2, size
         CreateGraphOnImage(NewGraph, Data2, MAXSIZEofData2, size, CvScalar(255, 0, 0));
         CreateGraphOnImage(NewGraph, Data1, MAXSIZEofData2, size, CvScalar(0, 0, 255));
 
+    }
+    cvSaveImage(filename.c_str(), NewGraph);
+    cvReleaseImage(&NewGraph);
+    std::cout<<"AdapriveCreate2FreqGraph END"<<std::endl;
+}
+
+template <typename T1>
+void AdapriveCreateVectorFreqGraph(std::vector<std::vector<T1> >&Data, size_t size, std::string filename)
+{
+    size_t XSize = _XSize - 10;
+    size_t YSize = _YSize - 10;
+    std::cout<<"AdapriveCreateVectorFreqGraph START"<<std::endl;
+
+    IplImage *NewGraph = cvCreateImage(CvSize(_XSize, _YSize), IPL_DEPTH_8U, 3);
+    cvSet(NewGraph, CvScalar(255, 255, 255));
+    size_t LghData = Data.size();
+    T1 MAXSIZEofData = Data[0][0];
+    for (size_t i = 0; i < LghData; i++){
+        for (size_t j = 0; j < Data[i].size(); j++){
+            if (MAXSIZEofData < abs(Data[i][j])){
+                MAXSIZEofData = abs(Data[i][j]);
+            }
+        }
+    }
+    for(size_t i = 0; i < LghData; i++) {
+        CreateGraphOnImage(NewGraph, Data[i], MAXSIZEofData, size, CvScalar((255/(LghData))*i, (255/(LghData))*i, (255/(LghData))*i));
     }
     cvSaveImage(filename.c_str(), NewGraph);
     cvReleaseImage(&NewGraph);

@@ -33,9 +33,9 @@ public:
 
 public:
     Fixed(){
-        fractional_dec = 1;
-        integer_dec = 1;
-        total_dec = 2;
+        fractional_dec = 0;
+        integer_dec = 0;
+        total_dec = 0;
         Sign = true;
     }
     Fixed(const size_t int_dec, const size_t frac_dec, const vector<int> &integer_, const vector<int> &fractional_){
@@ -107,6 +107,13 @@ public:
         PushFractionalPath(fNumericFloat, fractional_dec);
         PushSignPath(fNumeric);
     }
+    void appoint(double fNumeric){
+        double fNumericInteger;
+        double fNumericFloat = std::modf(fNumeric, &fNumericInteger);
+        PushIntegerPath(fNumeric, integer_dec);
+        PushFractionalPath(fNumericFloat, fractional_dec);
+        PushSignPath(fNumeric);
+    }
     void appoint(int i, int f){
         PushIntegerPath(i, integer_dec);
         PushFractionalPath(f, fractional_dec);
@@ -122,10 +129,10 @@ public:
         }
     }
 private:
-
-    unsigned int GetDecbyNum(float const fNumeric, signed int const num){
-        float integer;
-        float fractional = std::modf(fNumeric, &integer);
+    template <typename T>
+    unsigned int GetDecbyNum(T const fNumeric, signed int const num){
+        T integer;
+        T fractional = std::modf(fNumeric, &integer);
         //static_cast<size_t>(abs(static_cast<int>(trunc(fNumeric))));
         unsigned int Num=0;
         if (num > 0){
@@ -198,7 +205,8 @@ private:
             }
         }
     }
-    void PushIntegerPath(float const fNumeric, size_t const Nums){
+    template <typename T>
+    void PushIntegerPath(T const fNumeric, size_t const Nums){
         int Numeric = static_cast<int>(abs(static_cast<int>(trunc(fNumeric))));
         PushIntegerPath(Numeric, Nums);
     }
@@ -221,7 +229,8 @@ private:
             }
         }
     }
-    void PushFractionalPath(float const fNumeric, size_t Nums){
+    template <typename T>
+    void PushFractionalPath(T const fNumeric, size_t Nums){
         size_t NumSize = (Nums < GetSizeofNumericAfterPoint(fNumeric)) ? Nums : GetSizeofNumericAfterPoint(fNumeric);
         if (NumSize == fractional_dec){
             for(int i = 0; i < NumSize; i++){

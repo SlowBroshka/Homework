@@ -145,9 +145,57 @@ Fixed operator+(const Fixed &Fx1, const Fixed &Fx2){
     return Buff;
 }
 Fixed operator-(const Fixed &Fx1, const Fixed &Fx2) {///Dodelat
-    Fixed BFx2(Fx2);
-    BFx2.Sign = !Fx2.Sign;
-    return Fx1 + BFx2;
+    Fixed Buff;
+    if (Fx1.GetSign() && Fx2.GetSign()){
+        if(AbsBigger(Fx1, Fx2)){
+            Buff = AbsMinus(Fx1, Fx2);
+            Buff.Sign = true;
+        }else{
+            if (AbsBigger(Fx2, Fx1)){
+                Buff = AbsMinus(Fx2, Fx1);
+                Buff.Sign = false;
+            }else{
+                Buff.resize(Fx1.GetIntegerDec() >= Fx2.GetIntegerDec() ? Fx1.GetIntegerDec() : Fx2.GetIntegerDec(),
+                            Fx1.GetFractionalDec() >= Fx2.GetFractionalDec() ? Fx1.GetFractionalDec() : Fx2.GetFractionalDec());
+            }
+        }
+    }else{
+        if (!Fx1.GetSign() && !Fx2.GetSign()){
+            Buff = AbsPlus(Fx1, Fx2);
+            Buff.Sign = false;
+        }else{
+            if (!Fx1.GetSign() && Fx2.GetSign()){
+                if (AbsBigger(Fx1, Fx2)){
+                    Buff = AbsMinus(Fx1, Fx2);
+                    Buff.Sign = false;
+                }else{
+                    if (AbsBigger(Fx2, Fx1)){
+                        Buff = AbsMinus(Fx2, Fx1);
+                        Buff.Sign = true;
+                    }else{
+                        Buff.resize(Fx1.GetIntegerDec() >= Fx2.GetIntegerDec() ? Fx1.GetIntegerDec() : Fx2.GetIntegerDec(),
+                                    Fx1.GetFractionalDec() >= Fx2.GetFractionalDec() ? Fx1.GetFractionalDec() : Fx2.GetFractionalDec());
+                    }
+                }
+            }else{
+                if (Fx1.GetSign() && !Fx2.GetSign()){
+                    if (AbsBigger(Fx1, Fx2)){
+                        Buff = AbsMinus(Fx1, Fx2);
+                        Buff.Sign = true;
+                    }else{
+                        if (AbsBigger(Fx2, Fx1)){
+                            Buff = AbsMinus(Fx2, Fx1);
+                            Buff.Sign = false;
+                        }else{
+                            Buff.resize(Fx1.GetIntegerDec() >= Fx2.GetIntegerDec() ? Fx1.GetIntegerDec() : Fx2.GetIntegerDec(),
+                                        Fx1.GetFractionalDec() >= Fx2.GetFractionalDec() ? Fx1.GetFractionalDec() : Fx2.GetFractionalDec());
+                        }
+                    }
+                }
+            }
+        }
+    }
+    return Buff;
 }
 bool operator >(const Fixed &Fx1, const Fixed &Fx2){
     if (Fx1.GetSign() && Fx2.GetSign()){
@@ -186,6 +234,7 @@ std::ostream &operator<<(std::ostream & os, Fixed const & Fx){
 Fixed AbsMinus(const Fixed &Fx1, const Fixed &Fx2){
     size_t MaxFractional =Fx1.GetFractionalDec() >= Fx2.GetFractionalDec() ? Fx1.GetFractionalDec() : Fx2.GetFractionalDec();
     size_t MaxInteger = Fx1.GetIntegerDec() >= Fx2.GetIntegerDec() ? Fx1.GetIntegerDec() : Fx2.GetIntegerDec();
+
 
     Fixed BFx1 = Fx1;
     Fixed BFx2 = Fx2;
@@ -228,7 +277,7 @@ Fixed AbsPlus(const Fixed &Fx1, const Fixed &Fx2){//NO SIGN
     size_t MaxFractional_dec = Fx1.fractional_dec <= Fx2.fractional_dec ? Fx2.fractional_dec : Fx1.fractional_dec;
     size_t MinInteger_dec = Fx1.integer_dec >= Fx2.integer_dec ? Fx2.integer_dec : Fx1.integer_dec;
     size_t MinFractional_dec = Fx1.fractional_dec >= Fx2.fractional_dec ? Fx2.fractional_dec : Fx1.fractional_dec;
-
+    cout<<Fx1<<" "<<Fx2<<endl;
     Fixed FxBuff = Fx1;
     vector<int> FBuff;
     vector<int> IBuff;
@@ -282,8 +331,8 @@ bool AbsBigger(const Fixed &Fx1, const Fixed &Fx2){//mdoule > module
     Fixed Buff2(Fx2);
     size_t MaxInteger_dec = Fx1.integer_dec >= Fx2.integer_dec ? Fx1.integer_dec : Fx2.integer_dec;
     size_t MinInteger_dec = Fx1.integer_dec < Fx2.integer_dec ? Fx1.integer_dec : Fx2.integer_dec;
-    size_t MaxFractional_dec = Fx1.integer_dec >= Fx2.integer_dec ? Fx1.integer_dec : Fx2.integer_dec;
-    size_t MinFractional_dec = Fx1.integer_dec < Fx2.integer_dec ? Fx1.integer_dec : Fx2.integer_dec;
+    size_t MaxFractional_dec = Fx1.fractional_dec >= Fx2.fractional_dec ? Fx1.fractional_dec : Fx2.fractional_dec;
+    size_t MinFractional_dec = Fx1.fractional_dec < Fx2.fractional_dec ? Fx1.fractional_dec : Fx2.fractional_dec;
     Buff1.resize(MaxInteger_dec, MaxFractional_dec);
     Buff2.resize(MaxInteger_dec, MaxFractional_dec);
     for (size_t i = 0; i < MaxInteger_dec; i++) {

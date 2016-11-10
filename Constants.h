@@ -6,7 +6,7 @@
 #define SIGNALENCODING_CONSTANTS_H
 
 static const unsigned short BUFFER_SIZE = 8192;
-static int const XSize = 2000;
-static int const YSize = 800;
+static int const _XSize = 1000;
+static int const _YSize = 400;
 
 #endif //SIGNALENCODING_CONSTANTS_H
