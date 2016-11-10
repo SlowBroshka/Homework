@@ -55,7 +55,7 @@ int main(int argc, char* argv[]) {
     }
     Adamar(Step, Ad);
 
-    for(size_t j = 1; j < 10; j++) {
+    for(size_t j = 1; j < 6; j++) {
         double FullDeviant1 = 0;
         for (size_t i = 0; i < MAX; i++) {
             double Fx1 = MyTrunc(Ad[i], j);
@@ -97,7 +97,7 @@ int main(int argc, char* argv[]) {
     TruncDevians.clear();
     TruncPlusDevians.clear();
     RoundDevians.clear();
-    for(size_t j = 4; j < 8; j++) {
+    for(size_t j = 1; j < 6; j++) {
         double FullDeviant1 = 0;
         double FullDeviant2 = 0;
         double FullDeviant3 = 0;
@@ -113,7 +113,7 @@ int main(int argc, char* argv[]) {
     Fin.push_back(TruncDevians);
     Fin.push_back(TruncPlusDevians);
     Fin.push_back(RoundDevians);
-    AdapriveCreateVectorFreqGraph(Fin, 2, std::string(Puth + "SKO3_N4-8_Trunc_Round_RoundPlus.jpg"));
+    AdapriveCreateVectorFreqGraph(Fin, 2, std::string(Puth + "SKO3_N4-6_Trunc_Round_RoundPlus.jpg"));
     Fin.clear();
     TruncDevians.clear();
     TruncPlusDevians.clear();
